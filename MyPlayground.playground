@@ -1,0 +1,114 @@
+//: Playground - noun: a place where people can play
+
+import UIKit
+
+
+class Device {
+    func capacity() -> String? {return nil}
+    func price()-> String?  {return nil}
+    func label()-> String?  {return nil}
+
+}
+
+class DVD: Device {
+    
+}
+
+class DVDSingleLayer: DVD {
+    override func capacity() -> String {
+        return "4.7Gb"
+    }
+    
+    override func price() -> String {
+        return "13.90"
+    }
+}
+
+
+class BluRaySingleLayer: DVD {
+    override func capacity() -> String {
+        return "18.7Gb"
+    }
+    
+    override func price() -> String {
+        return "23.90"
+    }
+}
+
+class DVDDoubleLayer: DVD {
+    override func capacity() -> String {
+        return "14.7Gb"
+    }
+    
+    override func price() -> String {
+        return "19.90"
+    }
+}
+
+
+class BluRayDoubleLayer: DVD {
+    override func capacity() -> String {
+        return "24.7Gb"
+    }
+    
+    override func price() -> String {
+        return "29.70"
+    }
+}
+
+
+
+
+
+
+//concrete factory
+
+
+protocol FactoryInterface {
+    func createBluray() -> DVD?
+    func createDVD() -> DVD?
+}
+
+class BuildSingleLayerDVD: FactoryInterface {
+    
+    func createBluray() -> DVD? {
+        return BluRaySingleLayer()
+    }
+    
+    
+    func createDVD() -> DVD? {
+        return DVDSingleLayer()
+    }
+}
+
+
+class BuildDoubleLayerDVD: FactoryInterface {
+    
+    func createBluray() -> DVD? {
+        return BluRayDoubleLayer()
+    }
+    
+    
+    func createDVD() -> DVD? {
+        return DVDDoubleLayer()
+    }
+}
+
+
+//main
+
+let singleLayerFactory = BuildSingleLayerDVD()
+let doubleLayerFactory = BuildDoubleLayerDVD()
+
+
+let dvd :DVD = singleLayerFactory.createDVD()!
+dvd.capacity()
+
+let dvdDouble :DVD = doubleLayerFactory.createDVD()!
+dvdDouble.capacity()
+
+let bluray :DVD = singleLayerFactory.createBluray()!
+bluray.capacity()
+
+let blrDouble :DVD = doubleLayerFactory.createBluray()!
+blrDouble.capacity()
